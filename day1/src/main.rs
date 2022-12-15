@@ -1,13 +1,12 @@
 fn main() {
-    // turn input.txt into an array
+    solve_day_1();
+}
+
+fn solve_day_1() {
     let input = include_str!("../input.txt");
     let input: Vec<&str> = input.split_whitespace().collect();
-    // turn array into a vector of integers
     let mut input: Vec<i32> = input.iter().map(|x| x.parse().unwrap()).collect();
-    // sort vector
     input.sort();
-    // assign the largest integer to a variable 'largest'
     let largest = input[input.len() - 1];
-    // print largest
     println!("{:?}", largest);
 }
