@@ -34,10 +34,12 @@ fn rochambeau() {
         round += 1;
         println!("Round {}", round);
         let mut player1_choice = String::new();
+        player1_choice = player1_choice.to_uppercase();
         io::stdin()
             .read_line(&mut player1_choice)
             .expect("Failed to read line");
         let mut player2_choice = String::new();
+        player2_choice = player2_choice.to_uppercase();
         io::stdin()
             .read_line(&mut player2_choice)
             .expect("Failed to read line");
@@ -62,10 +64,12 @@ fn rochambeau() {
         }
 
         if player1_score >= 21 {
-            winner = player1;
+            // clone player1
+            winner = player1.clone();
             game = false;
         } else if player2_score >= 21 {
-            winner = player2;
+            // clone player2
+            winner = player2.clone();
             game = false;
         }
     }
