@@ -5,74 +5,84 @@
 // 3 for draw
 // 6 for win
 
-use std::io;
-
 fn main() {
     rochambeau();
 }
 
 fn rochambeau() {
-    let mut player1 = String::new();
-    let mut player2 = String::new();
-    let mut player1_score = 0;
-    let mut player2_score = 0;
-    let mut round = 0;
-    let mut game = true;
-    let mut winner = String::new();
+    // Read input file
+    let input = std::fs::read_to_string("src/input.txt").unwrap();
 
-    println!("Welcome to Rochambeau!");
-    println!("Player 1, please enter your name: ");
-    io::stdin()
-        .read_line(&mut player1)
-        .expect("Failed to read line");
-    println!("Player 2, please enter your name: ");
-    io::stdin()
-        .read_line(&mut player2)
-        .expect("Failed to read line");
+    // split lines into vector
+    let lines: Vec<&str> = input.lines().collect();
 
-    while game {
+    // compare a to b in lines vector
+    // if a == b, add 3 to score
+    // if a == rock and b == scissors, add 6 to score
+    // if a == paper and b == rock, add 6 to score
+    // if a == scissors and b == paper, add 6 to score
+    // if a == rock and b == paper, add 0 to score
+    // if a == paper and b == scissors, add 0 to score
+    // if a == scissors and b == rock, add 0 to score
+
+    // create score variable
+    let mut score = 0;
+    let mut round = 1;
+    // loop through lines vector
+    for i in &lines {
+        // print i
+        println!("\nRound {}", round);
+        // get a and b
+        let a = i.chars().next().unwrap();
+        // print a
+        println!("a: {}", a);
+        let b = i.chars().nth(2).unwrap();
+        // print b
+        println!("b: {}", b);
+
+        // increment round
         round += 1;
-        println!("Round {}", round);
-        let mut player1_choice = String::new();
-        player1_choice = player1_choice.to_uppercase();
-        io::stdin()
-            .read_line(&mut player1_choice)
-            .expect("Failed to read line");
-        let mut player2_choice = String::new();
-        player2_choice = player2_choice.to_uppercase();
-        io::stdin()
-            .read_line(&mut player2_choice)
-            .expect("Failed to read line");
 
-        if player1_choice == "A" && player2_choice == "B" {
-            player2_score += 3;
-        } else if player1_choice == "A" && player2_choice == "C" {
-            player1_score += 3;
-        } else if player1_choice == "B" && player2_choice == "A" {
-            player1_score += 3;
-        } else if player1_choice == "B" && player2_choice == "C" {
-            player2_score += 3;
-        } else if player1_choice == "C" && player2_choice == "A" {
-            player2_score += 3;
-        } else if player1_choice == "C" && player2_choice == "B" {
-            player1_score += 3;
-        } else if player1_choice == player2_choice {
-            player1_score += 1;
-            player2_score += 1;
-        } else {
-            println!("Invalid input");
+        // compare a and b as string
+        match a {
+            'A' => match b {
+                'X' => score += 4,
+                'Y' => score += 1,
+                'Z' => score += 7,
+                _ => (),
+            },
+            'B' => match b {
+                'X' => score += 8,
+                'Y' => score += 5,
+                'Z' => score += 2,
+                _ => (),
+            },
+            'C' => match b {
+                'X' => score += 3,
+                'Y' => score += 9,
+                'Z' => score += 6,
+                _ => (),
+            },
+            // if no matches print 'error: no matches'
+            _ => (),
         }
-
-        if player1_score >= 21 {
-            // clone player1
-            winner = player1.clone();
-            game = false;
-        } else if player2_score >= 21 {
-            // clone player2
-            winner = player2.clone();
-            game = false;
-        }
+        //     if a == b {
+        //         score += 3;
+        //     } else if a == 'A' && b == 'Z' {
+        //         score += 6;
+        //     } else if a == 'B' && b == 'X' {
+        //         score += 6;
+        //     } else if a == 'C' && b == 'Y' {
+        //         score += 6;
+        //     } else if a == 'A' && b == 'Y' {
+        //         score += 0;
+        //     } else if a == 'B' && b == 'Z' {
+        //         score += 0;
+        //     } else if a == 'C' && b == 'X' {
+        //         score += 0;
+        //     }
+        // }
     }
-
-    println!("{} wins!", winner);
+    // print score
+    println!("score: {}", score);
 }
