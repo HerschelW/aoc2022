@@ -7,7 +7,7 @@ fn solve_day_3() {
     let input = include_str!("sample_input.txt");
     let lines = input.lines();
     // print first 5 lines
-    let mut matching_item = ' ';
+    let mut _matching_item = ' ';
     // empty vector
     let mut matching_items: Vec<char> = Vec::new();
     for line in lines {
@@ -24,8 +24,8 @@ fn solve_day_3() {
             for r in right.chars() {
                 if l == r {
                     matches += 1;
-                    matching_item = l;
-                    matching_items.push(matching_item);
+                    _matching_item = l;
+                    matching_items.push(_matching_item);
                 }
             }
         }
@@ -55,9 +55,9 @@ fn solve_day_3() {
 
     // find value for matching items
     let mut matching_values: Vec<i32> = Vec::new();
-    for i in 0..matching_items.len() {
+    for item in matching_items {
         for j in 0..alphabet.len() {
-            if matching_items[i] == alphabet[j] {
+            if item == alphabet[j] {
                 matching_values.push(j as i32 + 1);
             }
         }
@@ -67,8 +67,8 @@ fn solve_day_3() {
 
     // find sum of matching values
     let mut sum = 0;
-    for i in 0..matching_values.len() {
-        sum += matching_values[i];
+    for value in matching_values {
+        sum += value;
     }
     // print sum
     println!("{}", sum);
