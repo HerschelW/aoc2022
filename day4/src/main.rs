@@ -1,37 +1,51 @@
-// use Lines
-use std::str::Lines;
-
 fn main() {
-    // read input file
-    let input = include_str!("sample_input.txt");
-    // split input into lines
-    let lines = input.lines();
-
-    // solve day 4 part 1
-    solve_day_4_part_1(lines);
+    solve_day_4_part_1()
 }
 
-// create part 1 function with Lines as parameter
-fn solve_day_4_part_1(lines: Lines) {
-    // vector of vectors
-    let mut list_of_lists = Vec::new();
-    for line in lines {
-        // split lines at comma
-        let split_line = line.split(",");
-        for split in split_line {
-            // populate numerical list, first value is beginning, last value is ending
-            let numerical_list: Vec<i32> = split.split("-").map(|s| s.parse().unwrap()).collect();
-            // make new list that spreads numerical list[0]...numerical_list[1]
-            let mut new_list = Vec::new();
-            for i in numerical_list[0]..numerical_list[1] + 1 {
-                new_list.push(i);
-            }
-            // print new list
-            println!("{:?}", new_list);
-            // push new list to list of lists
-            list_of_lists.push(new_list);
+fn solve_day_4_part_1() {
+    let input = include_str!("sample_input.txt");
+
+    // get assignment ranges
+    let ranges: Vec<&str> = input.split("\n").collect();
+
+    // create contains variable
+    let mut contains = 0;
+
+    // create partial overlaps variable
+    let mut partial_overlaps = 0;
+
+    // loop through ranges
+    for range in ranges {
+        // split range into two assignments
+        let assignments: Vec<&str> = range.split(",").collect();
+
+        // split assignments into two ranges
+        let a1: Vec<i32> = assignments[0]
+            .split("-")
+            .map(|x| x.parse().expect("Error parsing range"))
+            .collect();
+
+        let a2: Vec<i32> = assignments[1]
+            .split("-")
+            .map(|x| x.parse().expect("Error parsing range"))
+            .collect();
+
+        // check if a1 contains a2
+        if (a1[0] <= a2[0]) && (a1[1] >= a2[1]) {
+            contains += 1;
+        } else if (a2[0] <= a1[0]) && (a2[1] >= a1[1]) {
+            contains += 1;
+        }
+
+        // check if a1 and a2 partially overlap
+        if (a1[0] <= a2[1]) && (a1[1] >= a2[0]) {
+            partial_overlaps += 1;
         }
     }
-    // print list of lists
-    println!("{:?}", list_of_lists);
+
+    // print contains
+    println!("{}", contains);
+
+    // print partial overlaps
+    println!("{}", partial_overlaps);
 }
