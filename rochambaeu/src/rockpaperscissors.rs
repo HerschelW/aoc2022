@@ -20,11 +20,8 @@ impl RockPaperScissors {
             let _a: &str = "A";
             let _b: &str = "B";
             let _c: &str = "C";
-            if player_choice.trim() == _a
-                || player_choice.trim() == _b
-                || player_choice.trim() == _c
-            {
-                player_choice_uppercase.trim();
+            if player_choice == _a || player_choice == _b || player_choice == _c {
+                player_choice_uppercase;
             } else {
                 println!("Invalid input");
                 get_choice();
@@ -62,19 +59,19 @@ impl RockPaperScissors {
             // print player 2 choice
             println!("{} chose {}", player2, player2_choice);
 
-            if player1_choice == "A" && player2_choice.trim() == "B" {
+            if player1_choice == 'A' && player2_choice == "B" {
                 player2_score += 3;
-            } else if player1_choice == "A" && player2_choice.trim() == "C" {
+            } else if player1_choice == 'A' && player2_choice == "C" {
                 player1_score += 3;
-            } else if player1_choice == "B" && player2_choice.trim() == "A" {
+            } else if player1_choice == "B" && player2_choice == 'A' {
                 player1_score += 3;
-            } else if player1_choice == "B" && player2_choice.trim() == "C" {
+            } else if player1_choice == "B" && player2_choice == "C" {
                 player2_score += 3;
-            } else if player1_choice == "C" && player2_choice.trim() == "A" {
+            } else if player1_choice == "C" && player2_choice == 'A' {
                 player2_score += 3;
-            } else if player1_choice == "C" && player2_choice.trim() == "B" {
+            } else if player1_choice == "C" && player2_choice == "B" {
                 player1_score += 3;
-            } else if player1_choice == player2_choice.trim() {
+            } else if player1_choice == player2_choice {
                 player1_score += 1;
                 player2_score += 1;
             } else {

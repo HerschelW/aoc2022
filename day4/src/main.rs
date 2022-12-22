@@ -3,7 +3,7 @@ fn main() {
 }
 
 fn solve_day_4_part_1() {
-    let input = include_str!("sample_input.txt");
+    let input = include_str!("input.txt");
 
     // get assignment ranges
     let ranges: Vec<&str> = input.split("\n").collect();
